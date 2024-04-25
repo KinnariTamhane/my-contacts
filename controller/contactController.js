@@ -1,23 +1,63 @@
-const getContact = ((req,res)=>{
-    res.status(200).json({message:'Get contact details'})
+const asyncHandler = require('express-async-handler');
+const Contact = require('../model/contactModel');
+
+
+// create contact
+const createContact = asyncHandler(async (req,res)=>{
+    const {name,email,phone} = req.body;
+    const createContact = await Contact.create({
+        name,
+        email,
+        phone
+    });
+    if(createContact){
+        res.status(201).json(createContact)
+    }
+    else{
+        res.status(400).json({message : "Something went wrong"})
+    }
  });
 
-const createContact = ((req,res)=>{
-    console.log('this is req body',req.body);
-    res.status(200).json({message:'Create contact'})
+
+// get
+const getContact = asyncHandler(async (req,res)=>{
+    const contact = await Contact.findById(req.params.id);
+    if(contact){
+        res.status(200).json(contact)
+    }
+    else{
+        res.status(400).json({message : "Something went wrong"})
+    }
+});
+
+// update
+const updateContact = asyncHandler(async (req,res)=>{
+    const contact = await Contact.findById(req.params.id);
+    if(!contact){
+        res.status(404).json({message : "Something went wrong"})
+        throw new Error('user not found');
+    }
+
+    const updateUserContact = await Contact.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new : true }
+    );
+
+    res.status(201).json(updateUserContact);
  });
 
-const updateContact = ((req,res)=>{
-    res.status(200).json({message:`Update contact ${req.params.id}`})
+// delete
+const deleteContact = asyncHandler(async (req,res)=>{
+    const contact = await Contact.findById(req.params.id);
+   
+    if(!contact){
+        res.status(404);
+        throw new Error('user not found');
+    }
+    await Contact.deleteOne();
+    res.status(201).json(contact);
  });
 
-const readContact = ((req,res)=>{
-    res.status(200).json({message:`Read contact ${req.params.id}`})
- });
 
-const deleteContact = ((req,res)=>{
-    res.status(200).json({message:`Delete contact ${req.params.id}`})
- });
-
-
- module.exports = { getContact,createContact,updateContact,readContact,deleteContact}
+ module.exports = { getContact,createContact,updateContact,deleteContact}
