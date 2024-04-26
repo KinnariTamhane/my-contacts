@@ -11,7 +11,7 @@ const createContact = asyncHandler(async (req,res)=>{
         phone,
         user_id : req.user.id
     });
-    if(createContact){
+    if(!createContact){
         res.status(404);
         throw new Error('User not created');
     }

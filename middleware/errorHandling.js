@@ -1,6 +1,6 @@
 const errorHandling = (error,req,res,next) => {
-   if (res.statusCode != 200){
-    res.json({message:error})
+   if (res.statusCode != 201){
+    res.json({message:error.message})
    }
 }
 
