@@ -13,7 +13,9 @@ app.use('/api/contacts',require('./routes/contactRouter'));
 app.use('/api/user',require('./routes/userRouter'));
 
 app.use(errorHandling);
+
 connection();
+
 app.listen(port,()=>{
     console.log(`listening to the PORT ${port}`)
 })

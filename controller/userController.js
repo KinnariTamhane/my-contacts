@@ -6,13 +6,13 @@ const jwtToken = require('jsonwebtoken');
 const registerUser = asyncHandler(async(req,res) =>{
     const {name,email,password} = req.body;
     if(!name || !email || !password){
-        res.status(400).json({message:"All fields are required"});
+        res.status(404).json({message:"All fields are required"});
     }
 
     const userAvailable = await User.findOne({email})
 
     if(userAvailable){
-        res.status(400).json({message:"User already exists"});
+        res.status(404).json({message:"User already exists"});
     }
     else{
         const hashPassword = await bcrypt.hash(password,10);
@@ -27,7 +27,7 @@ const registerUser = asyncHandler(async(req,res) =>{
             res.status(201).json({message:"User Created"});
         }
         else{
-            res.status(400).json({message:"error"});
+            res.status(404).json({message:"error"});
         }
     }
 
@@ -61,14 +61,13 @@ const loginUser = asyncHandler(async(req,res) =>{
             {expiresIn: "30m"}
         )
         if(authToken){
-            console.log(authToken)
+            // console.log(authToken)
             res.status(201).json({message:"User login successful..."});
         }
     }
     else{
         res.status(201).json({message:"password mismatch"});
     }
-
 })
 
 module.exports = {registerUser, loginUser, loggedInUser}

@@ -8,7 +8,7 @@ const verifyToken = asyncHandler(async(req,res,next)=>{
     if (authHeader && authHeader.startsWith("Bearer")){
         authToken = authHeader.split(" ")[1];
         if(!authToken){
-            res.status(401)
+            res.status(404)
             throw new Error("UnAuthorized")
         }
         jwt.verify(authToken,'admin123',(err,decoded) => {

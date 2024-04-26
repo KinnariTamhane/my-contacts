@@ -6,10 +6,12 @@ const router = express.Router();
 
 const validateUser = require('../middleware/validateToken');
 
+
 router.post('/register', registerUser);
 
 router.post('/login', loginUser);
 
 router.get('/current', validateUser, loggedInUser);
+
 
 module.exports = router
