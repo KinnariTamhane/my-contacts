@@ -6,13 +6,15 @@ const jwtToken = require('jsonwebtoken');
 const registerUser = asyncHandler(async(req,res) =>{
     const {name,email,password} = req.body;
     if(!name || !email || !password){
-        res.status(404).json({message:"All fields are required"});
+        res.status(404);
+        throw new Error('All fields are required');
     }
 
     const userAvailable = await User.findOne({email})
 
     if(userAvailable){
-        res.status(404).json({message:"User already exists"});
+        res.status(404);
+        throw new Error('User does not exist');
     }
     else{
         const hashPassword = await bcrypt.hash(password,10);
@@ -27,26 +29,27 @@ const registerUser = asyncHandler(async(req,res) =>{
             res.status(201).json({message:"User Created"});
         }
         else{
-            res.status(404).json({message:"error"});
+            res.status(404);
+            throw new Error('unable to create user');
         }
     }
 
 })
 
-
 const loggedInUser = asyncHandler(async(req,res) =>{ 
     res.status(201).json(req.User);
 })
 
-
 const loginUser = asyncHandler(async(req,res) =>{
     const {email,password} = req.body;
     if(!email || !password){
-        res.status(404).json({message:"email and password is required"});
+        res.status(404);
+        throw new Error('No contacts found!');
     }
     const user = await User.findOne({email})
     if(!user){
-        res.status(404).json({message:"User does not exist"});
+        res.status(404);
+        throw new Error('User not found!');
     }
     if(user && (await bcrypt.compare(password,user.password))){
         const authToken = jwtToken.sign(
@@ -66,7 +69,8 @@ const loginUser = asyncHandler(async(req,res) =>{
         }
     }
     else{
-        res.status(201).json({message:"password mismatch"});
+        res.status(404);
+        throw new Error('Password Mismatch');
     }
 })
 

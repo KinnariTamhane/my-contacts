@@ -24,7 +24,7 @@ const getContact = asyncHandler(async (req,res)=>{
     const contact = await Contact.findById(req.params.id);
     if(contact.user_id.toString() !== req.user.id){
         res.status(404);
-        throw new Error('No access to delete');
+        throw new Error('No access to read contact');
     }
     res.status(200).json(contact)
 });
@@ -37,8 +37,8 @@ const updateContact = asyncHandler(async (req,res)=>{
         throw new Error('user not found');
     }
     if(contact.user_id.toString() !== req.user.id){
-        res.status(401);
-        throw new Error('No access to delete');
+        res.status(404);
+        throw new Error('No access to update contact');
     }
     const updateUserContact = await Contact.findByIdAndUpdate(
         req.params.id,
@@ -60,7 +60,7 @@ const deleteContact = asyncHandler(async (req,res)=>{
 
     if(contact.user_id.toString() !== req.user.id){
         res.status(404);
-        throw new Error('No access to delete');
+        throw new Error('No access to delete contact');
     }
     await Contact.deleteOne({_id : contact.user_id});
     res.status(201).json(contact);
@@ -72,7 +72,7 @@ const getAllContacts = asyncHandler(async (req,res)=>{
     const contact = await Contact.find({user_id : req.user.id});
     if(!contact){
         res.status(404);
-        throw new Error('No access to delete');
+        throw new Error('No contacts found!');
         
     }
     res.status(200).json(contact)
