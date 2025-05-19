@@ -28,19 +28,6 @@ Technologies
 - JWT (jsonwebtoken) – For secure authentication tokens, 
 - bcryptjs – Password hashing
 
-Project Structure
-
-project/
-│
-├── controllers/         # Business logic for auth and contacts
-├── middleware/          # Auth and error-handling middleware
-├── models/              # Mongoose schemas
-├── routes/              # Express route handlers
-├── config/              # MongoDB connection config
-├── .env                 # Environment variables
-├── server.js            # Entry point
-└── package.json
-
 API Endpoints Overview
 
 Auth Routes
