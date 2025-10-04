@@ -1,25 +1,25 @@
-
+## API Created in Express
 
 A backend project to store, access, and manipulate contacts with full user authentication, built using Node.js, Express.js, and MongoDB.
 
 This RESTful API allows users to register, log in, and securely manage their personal contact list.
 
-Features
+## ✨ Features
 
-(1) User Authentication and Authorization
-(2) JWT-based authentication
-(3) Password hashing with bcrypt
-(4) Contact Management
-(5) Create, Read, Update, and Delete (CRUD) operations
-(6) Contacts are private and user-specific
-(7) RESTful API Endpoints
-(8) Follows REST conventions with clear route structure
-(9) Modular Code Structure
-(10) Organized by routes, controllers, middleware, and models
-(11) Validation and Error Handling
-(12) Request validation with meaningful error messages
+- User Authentication and Authorization
+- JWT-based authentication
+- Password hashing with bcrypt
+- Contact Management
+- Create, Read, Update, and Delete (CRUD) operations
+- Contacts are private and user-specific
+- RESTful API Endpoints
+- Follows REST conventions with clear route structure
+- Modular Code Structure
+- Organized by routes, controllers, middleware, and models
+- Validation and Error Handling
+- Request validation with meaningful error messages
 
-Technologies
+## 🛠 Tech Stack
 
 - Node.js – JavaScript runtime for server-side development, 
 - Express.js – Web framework for routing and middleware, 
@@ -28,7 +28,7 @@ Technologies
 - JWT (jsonwebtoken) – For secure authentication tokens, 
 - bcryptjs – Password hashing
 
-API Endpoints Overview
+## API Endpoints Overview
 
 Auth Routes
 
